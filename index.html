@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volleyball-Trainingsplan</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Volleyball-Trainingsplan</h1>
+    
+    <!-- Save/Load buttons -->
+    <div class="save-load-container">
+        <button class="save-btn" onclick="saveConfiguration()">
+            <span class="icon">💾</span> Konfiguration speichern
+        </button>
+        <label for="load-config" class="load-btn">
+            <span class="icon">📂</span> Konfiguration laden
+        </label>
+        <input type="file" id="load-config" accept=".json" onchange="loadConfiguration(event)" style="display: none;">
+    </div>
+    
+    <div class="variant-header">
+        <h2>Variante A</h2>
+        <button class="delete-variant-btn" onclick="deleteVariant('variant-a')">🗑️</button>
+    </div>
+    <div class="hall-container" id="variant-a">
+        <div class="hall">
+            <h3>Montag</h3>
+            <div class="field-container" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+                <div class="team KMP" draggable="true" ondragstart="drag(event)">KMP</div>
+                <div class="team Blockbusters" draggable="true" ondragstart="drag(event)">Blockbusters</div>
+            </div>
+            <div class="field-container" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+                <div class="team Sexy-Licious" draggable="true" ondragstart="drag(event)">Sexy-Licious</div>
+                <div class="team Blockjobs" draggable="true" ondragstart="drag(event)">Blockjobs</div>
+            </div>
+            <div class="hall-info">Zweifeldhalle</div>
+        </div>
+        
+        <div class="hall">
+            <h3>Dienstag</h3>
+            <div class="field-container" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+                <div class="team BaggerBuben" draggable="true" ondragstart="drag(event)">BaggerBuben</div>
+                <div class="team HitHappens" draggable="true" ondragstart="drag(event)">HitHappens</div>
+            </div>
+            <div class="hall-info">Einfeldhalle</div>
+        </div>
+        
+        <div class="hall">
+            <h3>Mittwoch</h3>
+            <div class="field-container" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+                <div class="team Blockbusters" draggable="true" ondragstart="drag(event)">Blockbusters</div>
+                <div class="team Sexy-Licious" draggable="true" ondragstart="drag(event)">Sexy-Licious</div>
+            </div>
+            <div class="hall-info">Einfeldhalle</div>
+        </div>
+        
+        <div class="hall">
+            <h3>Donnerstag</h3>
+            <div class="field-container" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+                <div class="team KMP" draggable="true" ondragstart="drag(event)">KMP</div>
+                <div class="team Blockjobs" draggable="true" ondragstart="drag(event)">Blockjobs</div>
+            </div>
+            <div class="field-container" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+                <div class="team HitHappens" draggable="true" ondragstart="drag(event)">HitHappens</div>
+                <div class="team BaggerBuben" draggable="true" ondragstart="drag(event)">BaggerBuben</div>
+            </div>
+            <div class="hall-info">Zweifeldhalle</div>
+        </div>
+    </div>
+    
+    <div class="variant-header">
+        <h2>Variante B</h2>
+        <button class="delete-variant-btn" onclick="deleteVariant('variant-b')">🗑️</button>
+    </div>
+    <div class="hall-container" id="variant-b">
+        <div class="hall">
+            <h3>Montag</h3>
+            <div class="field-container" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+                <div class="team KMP" draggable="true" ondragstart="drag(event)">KMP</div>
+                <div class="team Blockbusters" draggable="true" ondragstart="drag(event)">Blockbusters</div>
+            </div>
+            <div class="field-container" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+                <div class="team Sexy-Licious" draggable="true" ondragstart="drag(event)">Sexy-Licious</div>
+                <div class="team Blockjobs" draggable="true" ondragstart="drag(event)">Blockjobs</div>
+            </div>
+            <div class="hall-info">Zweifeldhalle</div>
+        </div>
+        
+        <div class="hall">
+            <h3>Dienstag</h3>
+            <div class="field-container" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+                <div class="team BaggerBuben" draggable="true" ondragstart="drag(event)">BaggerBuben</div>
+                <div class="team HitHappens" draggable="true" ondragstart="drag(event)">HitHappens</div>
+            </div>
+            <div class="hall-info">Einfeldhalle</div>
+        </div>
+        
+        <div class="hall">
+            <h3>Mittwoch</h3>
+            <div class="field-container" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+                <div class="team KMP" draggable="true" ondragstart="drag(event)">KMP</div>
+                <div class="team Blockjobs" draggable="true" ondragstart="drag(event)">Blockjobs</div>
+            </div>
+            <div class="hall-info">Einfeldhalle</div>
+        </div>
+        
+        <div class="hall">
+            <h3>Donnerstag</h3>
+            <div class="field-container" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+                <div class="team Blockbusters" draggable="true" ondragstart="drag(event)">Blockbusters</div>
+                <div class="team Sexy-Licious" draggable="true" ondragstart="drag(event)">Sexy-Licious</div>
+            </div>
+            <div class="field-container" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+                <div class="team HitHappens" draggable="true" ondragstart="drag(event)">HitHappens</div>
+                <div class="team BaggerBuben" draggable="true" ondragstart="drag(event)">BaggerBuben</div>
+            </div>
+            <div class="hall-info">Zweifeldhalle</div>
+        </div>
+    </div>
+    
+    <!-- Team palette -->
+    <div class="team-palette">
+        <h3>Teams</h3>
+        <div class="team-palette-container" id="team-palette">
+            <div class="palette-team KMP" draggable="true" ondragstart="drag(event)">KMP</div>
+            <div class="palette-team Blockbusters" draggable="true" ondragstart="drag(event)">Blockbusters</div>
+            <div class="palette-team Sexy-Licious" draggable="true" ondragstart="drag(event)">Sexy-Licious</div>
+            <div class="palette-team Blockjobs" draggable="true" ondragstart="drag(event)">Blockjobs</div>
+            <div class="palette-team BaggerBuben" draggable="true" ondragstart="drag(event)">BaggerBuben</div>
+            <div class="palette-team HitHappens" draggable="true" ondragstart="drag(event)">HitHappens</div>
+        </div>
+        
+        <div class="add-team-form">
+            <input type="text" id="new-team-name" placeholder="Neues Team" />
+            <input type="color" id="new-team-color" value="#4CAF50" />
+            <div class="color-preview" id="color-preview" style="background-color: #4CAF50;"></div>
+            <button onclick="addNewTeam()">Team hinzufügen</button>
+        </div>
+    </div>
+    
+    <!-- Trash zone for deleting teams -->
+    <div class="trash-zone" id="trash-zone" ondrop="dropOnTrash(event)" ondragover="allowDrop(event)">
+        🗑️
+    </div>
+    
+    <!-- Add variant button -->
+    <div class="add-variant-container">
+        <div class="add-variant-btn" onclick="showVariantNamePrompt()">+</div>
+    </div>
+    
+    <!-- Container for custom variants -->
+    <div id="custom-variants-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

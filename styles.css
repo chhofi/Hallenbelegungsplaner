@@ -1,0 +1,346 @@
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+h1, h2, h3 {
+    color: #333;
+    text-align: center;
+}
+.hall-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+.hall {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 280px;
+    transition: transform 0.2s ease-in-out;
+    flex-shrink: 0;
+}
+.hall:hover {
+    transform: scale(1.02);
+}
+.hall h3 {
+    margin-top: 0;
+    color: #444;
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+.field-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    padding: 10px;
+    border-radius: 8px;
+    background: #f1f1f1;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    min-height: 45px; /* Ensure containers have minimum height even when empty */
+    position: relative; /* For positioning the icons */
+}
+.team {
+    border-radius: 8px;
+    padding: 12px 8px;
+    font-weight: bold;
+    color: white;
+    width: 48%;
+    text-align: center;
+    margin: 0;
+    cursor: move;
+    font-size: 0.9em;
+}
+
+/* Team colors */
+.KMP { background-color: #4CAF50; }
+.Blockbusters { background-color: #1976d2; }
+.Sexy-Licious { background-color: #e91e63; }
+.Blockjobs { background-color: #9e9e9e; }
+.BaggerBuben { background-color: #4db6ac; }
+.HitHappens { background-color: #ffb74d; }
+
+.hall-info {
+    font-style: italic;
+    color: #666;
+    font-size: 0.9em;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.variant-card {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+.delete-btn {
+    background-color: #f44336;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+/* Highlight drop zones when dragging */
+.field-container.drop-target {
+    background-color: #e1f5fe;
+    border: 2px dashed #29b6f6;
+}
+
+/* Add variant button */
+.add-variant-container {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+.add-variant-btn {
+    background-color: #2196F3;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s, background-color 0.2s;
+}
+.add-variant-btn:hover {
+    transform: scale(1.1);
+    background-color: #1976D2;
+}
+
+.variant-name-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.variant-name-input {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    width: 200px;
+}
+
+/* Team palette */
+.team-palette {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 800px;
+    text-align: center;
+}
+.team-palette h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+.team-palette-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.palette-team {
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-weight: bold;
+    color: white;
+    cursor: move;
+    font-size: 0.9em;
+    margin: 5px;
+    position: relative;
+}
+.add-team-form {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    gap: 10px;
+}
+.color-preview {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+}
+
+/* Action icons */
+.action-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    pointer-events: none; /* So it doesn't interfere with drops */
+}
+.delete-icon::before {
+    content: "✕";
+}
+.switch-icon::before {
+    content: "⇄";
+}
+
+/* Trash zone */
+.trash-zone {
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+    border: 2px dashed #f44336;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f44336;
+    font-size: 40px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.trash-zone.visible {
+    opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .hall {
+        width: 250px;
+        padding: 12px;
+    }
+    .team {
+        padding: 10px 6px;
+        font-size: 0.85em;
+    }
+}
+
+@media (max-width: 900px) {
+    .hall {
+        width: 300px;
+    }
+}
+
+/* Save/Load buttons */
+.save-load-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.save-btn, .load-btn {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+}
+
+.save-btn:hover, .load-btn:hover {
+    background-color: #f5f5f5;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.save-btn .icon, .load-btn .icon {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.save-btn {
+    color: #2196F3;
+}
+
+.load-btn {
+    color: #4CAF50;
+}
+
+/* Add these styles for the variant headers and delete buttons */
+.variant-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    position: relative;
+}
+
+.variant-header h2 {
+    margin: 0;
+}
+
+.delete-variant-btn {
+    background: none;
+    border: none;
+    color: #f44336;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 5px;
+    opacity: 0.7;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.delete-variant-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Update the team delete button styles */
+.team-delete-btn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    opacity: 0;
+    transition: opacity 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+}
+
+.palette-team:hover .team-delete-btn {
+    opacity: 1;
+}
+
+.team-delete-btn:hover {
+    color: white;
+} 
