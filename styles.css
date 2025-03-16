@@ -208,23 +208,40 @@ h1, h2, h3 {
     content: "⇄";
 }
 
-/* Trash zone */
+/* Trash zone for deleting teams */
 .trash-zone {
-    width: 100px;
-    height: 100px;
-    margin: 20px auto;
-    border: 2px dashed #f44336;
-    border-radius: 10px;
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    transform: translate(-50%, 0) scale(0.8);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: transparent;
+    color: #f44336;
+    font-size: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #f44336;
-    font-size: 40px;
+    cursor: pointer;
+    z-index: 1000;
     opacity: 0;
-    transition: opacity 0.3s;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    border: 2px dashed #f44336;
 }
+
 .trash-zone.visible {
     opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0) scale(1);
+    pointer-events: auto;
+}
+
+/* Remove the overlay styles or hide it completely */
+.trash-overlay {
+    display: none;
 }
 
 /* Responsive adjustments */
@@ -445,4 +462,254 @@ h1, h2, h3 {
 .edit-variant-btn:hover {
     opacity: 1;
     transform: scale(1.1);
+}
+
+.editable-variant-name {
+    cursor: text;
+    padding: 2px 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.editable-variant-name:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.editable-variant-name:focus {
+    background-color: rgba(0, 0, 0, 0.1);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.3);
+}
+
+.day-header {
+    background-color: #e6f2ff;
+    border-left: 2px solid #aaa;
+}
+
+.day-count-cell {
+    border-left: 2px solid #ddd;
+}
+
+.add-day-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px 8px;
+    margin-right: 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.add-day-btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Hall Configuration Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 0;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    animation: modal-appear 0.3s ease-out;
+}
+
+@keyframes modal-appear {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #f5f5f5;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #333;
+}
+
+.close-modal {
+    color: #777;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: #333;
+}
+
+.modal-body {
+    padding: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.modal-footer {
+    padding: 15px 20px;
+    text-align: right;
+    border-top: 1px solid #ddd;
+}
+
+/* Hall configuration items */
+.hall-config-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 12px;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.hall-config-item input[type="text"] {
+    flex: 1;
+    padding: 8px 12px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.hall-type-select {
+    padding: 8px 12px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.remove-hall-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.remove-hall-btn:hover {
+    background-color: #d32f2f;
+}
+
+.add-hall-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 100%;
+}
+
+.add-hall-btn:hover {
+    background-color: #388E3C;
+}
+
+.save-hall-config-btn {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.save-hall-config-btn:hover {
+    background-color: #1976D2;
+}
+
+.cancel-hall-config-btn {
+    background-color: #9e9e9e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 15px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.cancel-hall-config-btn:hover {
+    background-color: #757575;
+}
+
+/* Configuration button */
+.config-btn {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+    color: #673AB7;
+}
+
+.config-btn:hover {
+    background-color: #f5f5f5;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.config-btn .icon {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+/* Fresh Setup button */
+.fresh-setup-btn {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+    color: #FF5722;
+}
+
+.fresh-setup-btn:hover {
+    background-color: #f5f5f5;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.fresh-setup-btn .icon {
+    margin-right: 8px;
+    font-size: 18px;
 } 
