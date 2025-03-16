@@ -678,4 +678,99 @@ function isCustomTeam(element) {
     
     const standardTeams = ['KMP', 'Blockbusters', 'Sexy-Licious', 'Blockjobs', 'BaggerBuben', 'HitHappens'];
     return !standardTeams.includes(className) && customTeams.includes(className);
+}
+
+// Function to add a new variant
+function addNewVariant(variantName) {
+    // Generate a unique ID for the new variant
+    const variantId = 'variant-' + Date.now();
+    
+    // Create variant header with edit and delete buttons
+    const variantHeader = document.createElement('div');
+    variantHeader.className = 'variant-header';
+    
+    const variantTitle = document.createElement('h2');
+    variantTitle.textContent = variantName;
+    variantHeader.appendChild(variantTitle);
+    
+    const variantActions = document.createElement('div');
+    variantActions.className = 'variant-actions';
+    
+    const editButton = document.createElement('button');
+    editButton.className = 'edit-variant-btn';
+    editButton.textContent = '✏️';
+    editButton.onclick = function() { renameVariant(variantId); };
+    variantActions.appendChild(editButton);
+    
+    const deleteButton = document.createElement('button');
+    deleteButton.className = 'delete-variant-btn';
+    deleteButton.textContent = '🗑️';
+    deleteButton.onclick = function() { deleteVariant(variantId); };
+    variantActions.appendChild(deleteButton);
+    
+    variantHeader.appendChild(variantActions);
+    
+    // Create the hall container
+    const hallContainer = document.createElement('div');
+    hallContainer.className = 'hall-container';
+    hallContainer.id = variantId;
+    
+    // Add days (similar to existing variants)
+    const days = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag'];
+    days.forEach(day => {
+        const hall = document.createElement('div');
+        hall.className = 'hall';
+        
+        const dayTitle = document.createElement('h3');
+        dayTitle.textContent = day;
+        hall.appendChild(dayTitle);
+        
+        // Add field containers based on the day
+        const fieldCount = (day === 'Montag' || day === 'Donnerstag') ? 2 : 1;
+        for (let i = 0; i < fieldCount; i++) {
+            const fieldContainer = document.createElement('div');
+            fieldContainer.className = 'field-container';
+            fieldContainer.setAttribute('ondrop', 'drop(event)');
+            fieldContainer.setAttribute('ondragover', 'allowDrop(event)');
+            fieldContainer.setAttribute('ondragenter', 'dragEnter(event)');
+            fieldContainer.setAttribute('ondragleave', 'dragLeave(event)');
+            hall.appendChild(fieldContainer);
+        }
+        
+        // Add hall info
+        const hallInfo = document.createElement('div');
+        hallInfo.className = 'hall-info';
+        hallInfo.textContent = (fieldCount === 2) ? 'Zweifeldhalle' : 'Einfeldhalle';
+        hall.appendChild(hallInfo);
+        
+        hallContainer.appendChild(hall);
+    });
+    
+    // Get the container for custom variants
+    const customVariantsContainer = document.getElementById('custom-variants-container');
+    
+    // Append the new variant header and hall container
+    customVariantsContainer.appendChild(variantHeader);
+    customVariantsContainer.appendChild(hallContainer);
+    
+    // Update team counters
+    updateTeamCounters();
+}
+
+// Function to rename a variant
+function renameVariant(variantId) {
+    const variantHeader = document.querySelector(`#${variantId}`).previousElementSibling;
+    const variantTitle = variantHeader.querySelector('h2');
+    const currentName = variantTitle.textContent;
+    
+    // Prompt for new name
+    const newName = prompt('Neuer Name für die Variante:', currentName);
+    
+    // Update if a name was provided
+    if (newName && newName.trim() !== '') {
+        variantTitle.textContent = newName;
+        
+        // Also update any references to this variant in the team counter table
+        updateTeamCounters();
+    }
 } 

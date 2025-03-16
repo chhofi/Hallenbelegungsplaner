@@ -22,7 +22,10 @@
     
     <div class="variant-header">
         <h2>Variante A</h2>
-        <button class="delete-variant-btn" onclick="deleteVariant('variant-a')">🗑️</button>
+        <div class="variant-actions">
+            <button class="edit-variant-btn" onclick="renameVariant('variant-a')">✏️</button>
+            <button class="delete-variant-btn" onclick="deleteVariant('variant-a')">🗑️</button>
+        </div>
     </div>
     <div class="hall-container" id="variant-a">
         <div class="hall">
@@ -72,7 +75,10 @@
     
     <div class="variant-header">
         <h2>Variante B</h2>
-        <button class="delete-variant-btn" onclick="deleteVariant('variant-b')">🗑️</button>
+        <div class="variant-actions">
+            <button class="edit-variant-btn" onclick="renameVariant('variant-b')">✏️</button>
+            <button class="delete-variant-btn" onclick="deleteVariant('variant-b')">🗑️</button>
+        </div>
     </div>
     <div class="hall-container" id="variant-b">
         <div class="hall">
@@ -120,6 +126,14 @@
         </div>
     </div>
     
+    <!-- Container for custom variants -->
+    <div id="custom-variants-container"></div>
+    
+    <!-- Add variant button - always stays after all variants -->
+    <div class="add-variant-container">
+        <div class="add-variant-btn" onclick="showVariantNamePrompt()">+</div>
+    </div>
+    
     <!-- Team palette -->
     <div class="team-palette">
         <h3>Teams</h3>
@@ -130,6 +144,14 @@
             <div class="palette-team Blockjobs" draggable="true" ondragstart="drag(event)">Blockjobs</div>
             <div class="palette-team BaggerBuben" draggable="true" ondragstart="drag(event)">BaggerBuben</div>
             <div class="palette-team HitHappens" draggable="true" ondragstart="drag(event)">HitHappens</div>
+        </div>
+        
+        <!-- Team counter section -->
+        <div class="team-counter-section">
+            <h3>Team-Spielhäufigkeit</h3>
+            <div class="team-counter-container" id="team-counter-container">
+                <!-- Team counters will be generated here by JavaScript -->
+            </div>
         </div>
         
         <div class="add-team-form">
@@ -144,15 +166,137 @@
     <div class="trash-zone" id="trash-zone" ondrop="dropOnTrash(event)" ondragover="allowDrop(event)">
         🗑️
     </div>
-    
-    <!-- Add variant button -->
-    <div class="add-variant-container">
-        <div class="add-variant-btn" onclick="showVariantNamePrompt()">+</div>
-    </div>
-    
-    <!-- Container for custom variants -->
-    <div id="custom-variants-container"></div>
 
     <script src="script.js"></script>
+    
+    <!-- Add this script to handle team counters -->
+    <script>
+        // Function to update team counters
+        function updateTeamCounters() {
+            const counterContainer = document.getElementById('team-counter-container');
+            counterContainer.innerHTML = ''; // Clear existing counters
+            
+            // Get all variants
+            const variants = document.querySelectorAll('.hall-container');
+            const teamCounts = {};
+            
+            // Initialize team counts for each variant
+            variants.forEach(variant => {
+                const variantId = variant.id;
+                teamCounts[variantId] = {};
+                
+                // Get all teams in the palette
+                const paletteTeams = document.querySelectorAll('.palette-team');
+                paletteTeams.forEach(team => {
+                    const teamName = team.textContent;
+                    teamCounts[variantId][teamName] = 0;
+                });
+                
+                // Count teams in this variant
+                const teamsInVariant = variant.querySelectorAll('.team');
+                teamsInVariant.forEach(team => {
+                    const teamName = team.textContent;
+                    if (teamCounts[variantId][teamName] !== undefined) {
+                        teamCounts[variantId][teamName]++;
+                    }
+                });
+            });
+            
+            // Create a table for team counts
+            const table = document.createElement('table');
+            table.className = 'team-counter-table';
+            
+            // Create header row with variant names
+            const headerRow = document.createElement('tr');
+            const headerTeamCell = document.createElement('th');
+            headerTeamCell.textContent = 'Team';
+            headerRow.appendChild(headerTeamCell);
+            
+            // Add variant headers
+            Object.keys(teamCounts).forEach(variantId => {
+                const variantName = variantId.replace('variant-', '').toUpperCase();
+                const headerCell = document.createElement('th');
+                headerCell.textContent = variantName;
+                headerRow.appendChild(headerCell);
+            });
+            
+            table.appendChild(headerRow);
+            
+            // Create rows for each team
+            const teamNames = Object.keys(teamCounts[Object.keys(teamCounts)[0]] || {});
+            
+            // Get computed styles for each team to extract their colors
+            const teamColors = {};
+            teamNames.forEach(teamName => {
+                // Find the team element in the palette to get its color
+                const teamClass = teamName.replace(/\s+/g, '');
+                const teamElement = document.querySelector(`.palette-team.${teamClass}`);
+                if (teamElement) {
+                    const computedStyle = window.getComputedStyle(teamElement);
+                    teamColors[teamName] = computedStyle.backgroundColor;
+                }
+            });
+            
+            teamNames.forEach(teamName => {
+                const row = document.createElement('tr');
+                
+                // Add team name cell
+                const teamCell = document.createElement('td');
+                teamCell.className = 'team-name-cell';
+                teamCell.textContent = teamName;
+                
+                // Apply the team's color directly to the row
+                if (teamColors[teamName]) {
+                    row.style.backgroundColor = teamColors[teamName];
+                }
+                
+                row.appendChild(teamCell);
+                
+                // Add count cells for each variant
+                Object.keys(teamCounts).forEach(variantId => {
+                    const count = teamCounts[variantId][teamName] || 0;
+                    const countCell = document.createElement('td');
+                    countCell.className = 'count-cell';
+                    countCell.textContent = count + 'x';
+                    
+                    // Highlight cells with higher counts
+                    if (count >= 2) {
+                        countCell.classList.add('count-high');
+                    } else if (count === 0) {
+                        countCell.classList.add('count-zero');
+                    }
+                    
+                    row.appendChild(countCell);
+                });
+                
+                table.appendChild(row);
+            });
+            
+            counterContainer.appendChild(table);
+        }
+        
+        // Call the function when the page loads
+        document.addEventListener('DOMContentLoaded', updateTeamCounters);
+        
+        // Update counters after drag and drop operations
+        const originalDrop = window.drop;
+        window.drop = function(ev) {
+            originalDrop(ev);
+            updateTeamCounters();
+        };
+        
+        const originalDropOnTrash = window.dropOnTrash;
+        window.dropOnTrash = function(ev) {
+            originalDropOnTrash(ev);
+            updateTeamCounters();
+        };
+        
+        // Update counters after adding a new team
+        const originalAddNewTeam = window.addNewTeam;
+        window.addNewTeam = function() {
+            originalAddNewTeam();
+            updateTeamCounters();
+        };
+    </script>
 </body>
 </html> 

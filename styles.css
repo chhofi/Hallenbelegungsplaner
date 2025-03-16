@@ -343,4 +343,106 @@ h1, h2, h3 {
 
 .team-delete-btn:hover {
     color: white;
+}
+
+/* Team counter styles */
+.team-counter-section {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.team-counter-section h3 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.team-counter-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.team-counter-table th, 
+.team-counter-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #e9ecef;
+}
+
+.team-counter-table th {
+    background-color: #6c757d;
+    color: white;
+    font-weight: 600;
+}
+
+.team-counter-table tr:nth-child(even) {
+    background-color: transparent;
+}
+
+.team-counter-table tr:hover {
+    filter: brightness(1.1);
+}
+
+.team-name-cell {
+    text-align: left;
+    font-weight: 500;
+    color: white;
+}
+
+/* Team row background colors - update to match the original team colors */
+.team-row.KMP { background-color: #4CAF50; }
+.team-row.Blockbusters { background-color: #1976d2; }
+.team-row.Sexy-Licious { background-color: #e91e63; }
+.team-row.Blockjobs { background-color: #9e9e9e; }
+.team-row.BaggerBuben { background-color: #4db6ac; }
+.team-row.HitHappens { background-color: #ffb74d; }
+
+/* Count cell styles */
+.count-cell {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 4px;
+    margin: 2px;
+    font-weight: bold;
+}
+
+.count-high {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #006400;
+}
+
+.count-zero {
+    color: #777;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Variant actions container */
+.variant-actions {
+    display: flex;
+    gap: 5px;
+}
+
+/* Edit variant button */
+.edit-variant-btn {
+    background: none;
+    border: none;
+    color: #2196F3;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 5px;
+    opacity: 0.7;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.edit-variant-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
 } 
