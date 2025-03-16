@@ -106,17 +106,6 @@ function createNewVariant(variantName, customDays) {
         dayHeading.textContent = day;
         hall.appendChild(dayHeading);
         
-        // Add delete hall button
-        const deleteButton = document.createElement('button');
-        deleteButton.className = 'delete-hall-btn';
-        deleteButton.innerHTML = '&times;';
-        deleteButton.title = 'Halle löschen';
-        deleteButton.onclick = function(e) {
-            e.stopPropagation();
-            deleteHall(hall);
-        };
-        hall.appendChild(deleteButton);
-        
         // Determine hall type based on the day
         const hallType = hallTypes[day] || 'Einfeldhalle';
         
@@ -265,17 +254,6 @@ function addNewVariant(variantName, customDays) {
         dayTitle.textContent = day;
         hall.appendChild(dayTitle);
         
-        // Add delete hall button
-        const deleteHallButton = document.createElement('button');
-        deleteHallButton.className = 'delete-hall-btn';
-        deleteHallButton.innerHTML = '&times;';
-        deleteHallButton.title = 'Halle löschen';
-        deleteHallButton.onclick = function(e) {
-            e.stopPropagation();
-            deleteHall(hall);
-        };
-        hall.appendChild(deleteHallButton);
-        
         // Determine hall type based on the day
         const hallType = hallTypes[day] || 'Einfeldhalle';
         
@@ -398,17 +376,6 @@ function addCustomDay(variantId) {
             dayHeading.textContent = dayName.trim();
             hall.appendChild(dayHeading);
             
-            // Create delete hall button
-            const deleteButton = document.createElement('button');
-            deleteButton.className = 'delete-hall-btn';
-            deleteButton.innerHTML = '&times;';
-            deleteButton.title = 'Halle löschen';
-            deleteButton.onclick = function(e) {
-                e.stopPropagation();
-                deleteHall(hall);
-            };
-            hall.appendChild(deleteButton);
-            
             // Create field containers based on hall type
             let fieldCount = 1;
             if (hallType === 'Zweifeldhalle') fieldCount = 2;
@@ -466,20 +433,7 @@ function deleteHall(hallElement) {
 
 // Function to add delete buttons to existing halls
 function addDeleteButtonsToHalls() {
-    document.querySelectorAll('.hall').forEach(hall => {
-        // Check if hall already has a delete button
-        if (!hall.querySelector('.delete-hall-btn')) {
-            const deleteButton = document.createElement('button');
-            deleteButton.className = 'delete-hall-btn';
-            deleteButton.innerHTML = '&times;';
-            deleteButton.title = 'Halle löschen';
-            deleteButton.onclick = function(e) {
-                e.stopPropagation();
-                deleteHall(hall);
-            };
-            hall.appendChild(deleteButton);
-        }
-    });
+    // This function is now empty as we're removing the delete buttons
 }
 
 // Update the variant header to include an "Add Day" button
@@ -489,42 +443,8 @@ function updateVariantHeaders() {
         btn.remove();
     });
     
-    // Process each variant
-    document.querySelectorAll('.hall-container').forEach(variant => {
-        const variantId = variant.id;
-        const halls = variant.querySelectorAll('.hall');
-        
-        // Only add the button if there's at least one hall
-        if (halls.length > 0) {
-            // Get the last hall
-            const lastHall = halls[halls.length - 1];
-            
-            // Create the add hall button
-            const addHallBtn = document.createElement('div');
-            addHallBtn.className = 'add-hall-btn';
-            addHallBtn.textContent = '+';
-            addHallBtn.title = 'Halle hinzufügen';
-            addHallBtn.onclick = function() { addCustomDay(variantId); };
-            
-            // Add button to the last hall
-            lastHall.appendChild(addHallBtn);
-        } else {
-            // If no halls, add it directly to the variant container
-            const addHallBtn = document.createElement('div');
-            addHallBtn.className = 'add-hall-btn';
-            addHallBtn.textContent = '+';
-            addHallBtn.title = 'Halle hinzufügen';
-            addHallBtn.onclick = function() { addCustomDay(variantId); };
-            
-            variant.appendChild(addHallBtn);
-        }
-    });
-    
     // Remove the old buttons from variant headers
     document.querySelectorAll('.variant-header .add-day-btn').forEach(btn => {
         btn.remove();
     });
-    
-    // Add delete buttons to all existing halls
-    addDeleteButtonsToHalls();
 } 

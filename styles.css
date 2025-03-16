@@ -621,18 +621,7 @@ h1, h2, h3 {
 }
 
 .add-hall-btn {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 15px;
-    margin-top: 10px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.add-hall-btn:hover {
-    background-color: #388E3C;
+    display: none; /* Hide the add hall button */
 }
 
 .save-hall-config-btn {
@@ -720,50 +709,10 @@ h1, h2, h3 {
 }
 
 .add-hall-btn {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    width: 24px;
-    height: 24px;
-    background-color: transparent;
-    color: #4CAF50;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    line-height: 1;
-    z-index: 5;
-}
-
-.add-hall-btn:hover {
-    transform: scale(1.2);
+    display: none; /* Hide the add hall button */
 }
 
 /* Delete hall button */
 .delete-hall-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 26px;
-    height: 26px;
-    background-color: transparent;
-    color: #888;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 18px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    opacity: 0.5;
-    border: none;
-    padding: 0;
-    line-height: 1;
-}
-
-.delete-hall-btn:hover {
-    opacity: 1;
-    color: #555;
+    display: none; /* Hide the delete hall button */
 } 
